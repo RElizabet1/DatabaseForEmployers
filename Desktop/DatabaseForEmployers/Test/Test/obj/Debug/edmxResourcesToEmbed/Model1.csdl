@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TestBaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="InterviewersSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ФИО" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="UsersSet" Relationship="TestBaseModel.UsersSetInterviewersSet" FromRole="InterviewersSet" ToRole="UsersSet" />
+    <Property Name="UsersSetId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UsersSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Фамилия" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Имя" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Отчество" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Ссылка" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ДатаСобеседования" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Рейтинг" Type="String" Nullable="false" />
+    <Property Name="Пояснения" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="true" />
+    <NavigationProperty Name="InterviewersSet" Relationship="TestBaseModel.UsersSetInterviewersSet" FromRole="UsersSet" ToRole="InterviewersSet" />
+    <NavigationProperty Name="Skills" Relationship="TestBaseModel.UsersSetSkills" FromRole="UsersSet" ToRole="Skills" />
+    <Property Name="Файлы" Type="String" Nullable="true" />
+  </EntityType>
+  <EntityContainer Name="TestBaseEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="InterviewersSet" EntityType="Self.InterviewersSet" />
+    <EntitySet Name="UsersSet" EntityType="Self.UsersSet" />
+    <EntitySet Name="SkillsSet" EntityType="TestBaseModel.Skills" />
+    <AssociationSet Name="UsersSetInterviewersSet" Association="TestBaseModel.UsersSetInterviewersSet">
+      <End Role="UsersSet" EntitySet="UsersSet" />
+      <End Role="InterviewersSet" EntitySet="InterviewersSet" />
+    </AssociationSet>
+    <AssociationSet Name="UsersSetSkills" Association="TestBaseModel.UsersSetSkills">
+      <End Role="UsersSet" EntitySet="UsersSet" />
+      <End Role="Skills" EntitySet="SkillsSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Skills">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Фреймворки" Type="String" Nullable="false" />
+    <Property Name="ЯзыкиПрограммирования" Type="String" Nullable="false" />
+    <Property Name="Библиотеки" Type="String" Nullable="false" />
+    <NavigationProperty Name="UsersSet" Relationship="TestBaseModel.UsersSetSkills" FromRole="Skills" ToRole="UsersSet" />
+    <Property Name="UsersSetId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="UsersSetInterviewersSet">
+    <End Type="TestBaseModel.UsersSet" Role="UsersSet" Multiplicity="1" />
+    <End Type="TestBaseModel.InterviewersSet" Role="InterviewersSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UsersSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InterviewersSet">
+        <PropertyRef Name="UsersSetId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UsersSetSkills">
+    <End Type="TestBaseModel.UsersSet" Role="UsersSet" Multiplicity="1" />
+    <End Type="TestBaseModel.Skills" Role="Skills" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UsersSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Skills">
+        <PropertyRef Name="UsersSetId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

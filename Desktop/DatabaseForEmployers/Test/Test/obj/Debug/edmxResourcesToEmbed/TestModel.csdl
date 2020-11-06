@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="TestModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+  <EntityContainer Name="TestModelContainer" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="UserSet" EntityType="TestModel.User" />
+    <EntitySet Name="SkillsSet" EntityType="TestModel.Skills" />
+    <AssociationSet Name="UserSkills" Association="TestModel.UserSkills">
+      <End Role="User" EntitySet="UserSet" />
+      <End Role="Skills" EntitySet="SkillsSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Фамилия" Type="String" Nullable="false" />
+    <Property Name="Имя" Type="String" Nullable="false" />
+    <Property Name="Отчество" Type="String" Nullable="false" />
+    <Property Name="Ссылка" Type="String" Nullable="false" />
+    <NavigationProperty Name="Skills" Relationship="TestModel.UserSkills" FromRole="User" ToRole="Skills" />
+  </EntityType>
+  <EntityType Name="Skills">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ЯзыкиПрограммирования" Type="String" Nullable="false" />
+    <Property Name="Фреймворки" Type="String" Nullable="false" />
+    <Property Name="Библиотеки" Type="String" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="TestModel.UserSkills" FromRole="Skills" ToRole="User" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="UserSkills">
+    <End Type="TestModel.User" Role="User" Multiplicity="1" />
+    <End Type="TestModel.Skills" Role="Skills" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Skills">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

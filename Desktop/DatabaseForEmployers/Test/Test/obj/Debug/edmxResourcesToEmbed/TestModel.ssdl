@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TestModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="TestModelStoreContainer">
+    <EntitySet Name="UserSet" EntityType="TestModel.Store.UserSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SkillsSet" EntityType="TestModel.Store.SkillsSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="UserSkills" Association="TestModel.Store.UserSkills">
+      <End Role="User" EntitySet="UserSet" />
+      <End Role="Skills" EntitySet="SkillsSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="UserSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Фамилия" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Имя" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Отчество" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Ссылка" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SkillsSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ЯзыкиПрограммирования" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Фреймворки" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Библиотеки" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="UserSkills">
+    <End Role="User" Type="TestModel.Store.UserSet" Multiplicity="1" />
+    <End Role="Skills" Type="TestModel.Store.SkillsSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Skills">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TestBaseModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="TestBaseModelStoreContainer">
+    <EntitySet Name="InterviewersSet" EntityType="TestBaseModel.Store.InterviewersSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UsersSet" EntityType="TestBaseModel.Store.UsersSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SkillsSet" EntityType="TestBaseModel.Store.SkillsSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="UsersSetInterviewersSet" Association="TestBaseModel.Store.UsersSetInterviewersSet">
+      <End Role="UsersSet" EntitySet="UsersSet" />
+      <End Role="InterviewersSet" EntitySet="InterviewersSet" />
+    </AssociationSet>
+    <AssociationSet Name="UsersSetSkills" Association="TestBaseModel.Store.UsersSetSkills">
+      <End Role="UsersSet" EntitySet="UsersSet" />
+      <End Role="Skills" EntitySet="SkillsSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="InterviewersSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ФИО" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="UsersSetId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UsersSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Фамилия" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Имя" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Отчество" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Ссылка" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ДатаСобеседования" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Рейтинг" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Пояснения" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Файлы" Type="nvarchar(max)" Nullable="true" />
+  </EntityType>
+  <EntityType Name="SkillsSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Фреймворки" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ЯзыкиПрограммирования" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Библиотеки" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="UsersSetId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="UsersSetInterviewersSet">
+    <End Role="UsersSet" Type="TestBaseModel.Store.UsersSet" Multiplicity="1" />
+    <End Role="InterviewersSet" Type="TestBaseModel.Store.InterviewersSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UsersSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InterviewersSet">
+        <PropertyRef Name="UsersSetId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UsersSetSkills">
+    <End Role="UsersSet" Type="TestBaseModel.Store.UsersSet" Multiplicity="1" />
+    <End Role="Skills" Type="TestBaseModel.Store.SkillsSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UsersSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Skills">
+        <PropertyRef Name="UsersSetId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TestBaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="InterviewersSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ФИО" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="UsersSet" Relationship="TestBaseModel.UsersSetInterviewersSet" FromRole="InterviewersSet" ToRole="UsersSet" />
+          <Property Name="UsersSetId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UsersSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Фамилия" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Имя" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Отчество" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Ссылка" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ДатаСобеседования" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Рейтинг" Type="String" Nullable="false" />
+          <Property Name="Пояснения" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="true" />
+          <NavigationProperty Name="InterviewersSet" Relationship="TestBaseModel.UsersSetInterviewersSet" FromRole="UsersSet" ToRole="InterviewersSet" />
+          <NavigationProperty Name="Skills" Relationship="TestBaseModel.UsersSetSkills" FromRole="UsersSet" ToRole="Skills" />
+          <Property Name="Файлы" Type="String" Nullable="true" />
+        </EntityType>
+        <EntityContainer Name="TestBaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="InterviewersSet" EntityType="Self.InterviewersSet" />
+          <EntitySet Name="UsersSet" EntityType="Self.UsersSet" />
+          <EntitySet Name="SkillsSet" EntityType="TestBaseModel.Skills" />
+          <AssociationSet Name="UsersSetInterviewersSet" Association="TestBaseModel.UsersSetInterviewersSet">
+            <End Role="UsersSet" EntitySet="UsersSet" />
+            <End Role="InterviewersSet" EntitySet="InterviewersSet" />
+          </AssociationSet>
+          <AssociationSet Name="UsersSetSkills" Association="TestBaseModel.UsersSetSkills">
+            <End Role="UsersSet" EntitySet="UsersSet" />
+            <End Role="Skills" EntitySet="SkillsSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Skills">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Фреймворки" Type="String" Nullable="false" />
+          <Property Name="ЯзыкиПрограммирования" Type="String" Nullable="false" />
+          <Property Name="Библиотеки" Type="String" Nullable="false" />
+          <NavigationProperty Name="UsersSet" Relationship="TestBaseModel.UsersSetSkills" FromRole="Skills" ToRole="UsersSet" />
+          <Property Name="UsersSetId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="UsersSetInterviewersSet">
+          <End Type="TestBaseModel.UsersSet" Role="UsersSet" Multiplicity="1" />
+          <End Type="TestBaseModel.InterviewersSet" Role="InterviewersSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsersSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="InterviewersSet">
+              <PropertyRef Name="UsersSetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UsersSetSkills">
+          <End Type="TestBaseModel.UsersSet" Role="UsersSet" Multiplicity="1" />
+          <End Type="TestBaseModel.Skills" Role="Skills" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UsersSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Skills">
+              <PropertyRef Name="UsersSetId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TestBaseModelStoreContainer" CdmEntityContainer="TestBaseEntities">
+    <EntitySetMapping Name="InterviewersSet">
+      <EntityTypeMapping TypeName="IsTypeOf(TestBaseModel.InterviewersSet)">
+        <MappingFragment StoreEntitySet="InterviewersSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ФИО" ColumnName="ФИО" />
+          <ScalarProperty Name="UsersSetId" ColumnName="UsersSetId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UsersSet">
+      <EntityTypeMapping TypeName="IsTypeOf(TestBaseModel.UsersSet)">
+        <MappingFragment StoreEntitySet="UsersSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Фамилия" ColumnName="Фамилия" />
+          <ScalarProperty Name="Имя" ColumnName="Имя" />
+          <ScalarProperty Name="Отчество" ColumnName="Отчество" />
+          <ScalarProperty Name="Ссылка" ColumnName="Ссылка" />
+          <ScalarProperty Name="ДатаСобеседования" ColumnName="ДатаСобеседования" />
+          <ScalarProperty Name="Рейтинг" ColumnName="Рейтинг" />
+          <ScalarProperty Name="Пояснения" ColumnName="Пояснения" />
+          <ScalarProperty Name="Файлы" ColumnName="Файлы" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SkillsSet">
+      <EntityTypeMapping TypeName="IsTypeOf(TestBaseModel.Skills)">
+        <MappingFragment StoreEntitySet="SkillsSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Фреймворки" ColumnName="Фреймворки" />
+          <ScalarProperty Name="ЯзыкиПрограммирования" ColumnName="ЯзыкиПрограммирования" />
+          <ScalarProperty Name="Библиотеки" ColumnName="Библиотеки" />
+          <ScalarProperty Name="UsersSetId" ColumnName="UsersSetId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

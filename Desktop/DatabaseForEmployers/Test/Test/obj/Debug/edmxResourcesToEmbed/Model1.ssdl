@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TestBaseModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="TestBaseModelStoreContainer">
+    <EntitySet Name="InterviewersSet" EntityType="TestBaseModel.Store.InterviewersSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UsersSet" EntityType="TestBaseModel.Store.UsersSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SkillsSet" EntityType="TestBaseModel.Store.SkillsSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="UsersSetInterviewersSet" Association="TestBaseModel.Store.UsersSetInterviewersSet">
+      <End Role="UsersSet" EntitySet="UsersSet" />
+      <End Role="InterviewersSet" EntitySet="InterviewersSet" />
+    </AssociationSet>
+    <AssociationSet Name="UsersSetSkills" Association="TestBaseModel.Store.UsersSetSkills">
+      <End Role="UsersSet" EntitySet="UsersSet" />
+      <End Role="Skills" EntitySet="SkillsSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="InterviewersSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ФИО" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="UsersSetId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UsersSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Фамилия" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Имя" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Отчество" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Ссылка" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ДатаСобеседования" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Рейтинг" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Пояснения" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Файлы" Type="nvarchar(max)" Nullable="true" />
+  </EntityType>
+  <EntityType Name="SkillsSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Фреймворки" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ЯзыкиПрограммирования" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Библиотеки" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="UsersSetId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="UsersSetInterviewersSet">
+    <End Role="UsersSet" Type="TestBaseModel.Store.UsersSet" Multiplicity="1" />
+    <End Role="InterviewersSet" Type="TestBaseModel.Store.InterviewersSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UsersSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InterviewersSet">
+        <PropertyRef Name="UsersSetId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UsersSetSkills">
+    <End Role="UsersSet" Type="TestBaseModel.Store.UsersSet" Multiplicity="1" />
+    <End Role="Skills" Type="TestBaseModel.Store.SkillsSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UsersSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Skills">
+        <PropertyRef Name="UsersSetId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

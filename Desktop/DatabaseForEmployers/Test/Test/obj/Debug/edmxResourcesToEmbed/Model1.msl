@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TestBaseModelStoreContainer" CdmEntityContainer="TestBaseEntities">
+    <EntitySetMapping Name="InterviewersSet">
+      <EntityTypeMapping TypeName="IsTypeOf(TestBaseModel.InterviewersSet)">
+        <MappingFragment StoreEntitySet="InterviewersSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ФИО" ColumnName="ФИО" />
+          <ScalarProperty Name="UsersSetId" ColumnName="UsersSetId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UsersSet">
+      <EntityTypeMapping TypeName="IsTypeOf(TestBaseModel.UsersSet)">
+        <MappingFragment StoreEntitySet="UsersSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Фамилия" ColumnName="Фамилия" />
+          <ScalarProperty Name="Имя" ColumnName="Имя" />
+          <ScalarProperty Name="Отчество" ColumnName="Отчество" />
+          <ScalarProperty Name="Ссылка" ColumnName="Ссылка" />
+          <ScalarProperty Name="ДатаСобеседования" ColumnName="ДатаСобеседования" />
+          <ScalarProperty Name="Рейтинг" ColumnName="Рейтинг" />
+          <ScalarProperty Name="Пояснения" ColumnName="Пояснения" />
+          <ScalarProperty Name="Файлы" ColumnName="Файлы" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SkillsSet">
+      <EntityTypeMapping TypeName="IsTypeOf(TestBaseModel.Skills)">
+        <MappingFragment StoreEntitySet="SkillsSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Фреймворки" ColumnName="Фреймворки" />
+          <ScalarProperty Name="ЯзыкиПрограммирования" ColumnName="ЯзыкиПрограммирования" />
+          <ScalarProperty Name="Библиотеки" ColumnName="Библиотеки" />
+          <ScalarProperty Name="UsersSetId" ColumnName="UsersSetId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
